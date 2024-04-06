@@ -5,7 +5,7 @@ import { UserModel } from "../schemas/users";
 export const createUser = async (req: Request, res: Response) => {
   try {
     const user = UserSchema.safeParse(req.body);
-    console.log(user, "user");
+    // console.log(user, "user");
     if (!user.success) {
       return res.status(400).json({ error: user.error });
     }

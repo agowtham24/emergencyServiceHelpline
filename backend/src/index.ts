@@ -4,6 +4,9 @@ import fs from "fs";
 import path from "path";
 import mongoose from "mongoose";
 import { usersRouter } from "./routes/users";
+import { serviceRouter } from "./routes/services";
+import { userConnectedServiceRouter } from "./routes/userconectedservice";
+import { reviewRouter } from "./routes/reviews";
 
 const app = express();
 app.use(cors());
@@ -11,6 +14,7 @@ app.use(express.json());
 const PORT = 5000;
 const db_url = "mongodb://localhost:27017/emergencyHelplineService";
 const publicFolder = path.join(process.cwd(), "static");
+app.use(express.static(publicFolder));
 const foldersToCreate = ["serviceImages"];
 async function server() {
   try {
@@ -37,3 +41,6 @@ async function server() {
 server();
 
 app.use("/users", usersRouter);
+app.use("/services", serviceRouter);
+app.use("/userconnectedservice", userConnectedServiceRouter);
+app.use("/reviews", reviewRouter);
