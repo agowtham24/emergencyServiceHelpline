@@ -12,7 +12,7 @@ import {
 export const serviceRouter = Router();
 const Storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "static/serviceImages");
+    cb(null, "public/serviceImages");
   },
   filename: (req, file, cb) => {
     cb(

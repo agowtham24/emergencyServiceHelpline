@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 const PORT = 5000;
 const db_url = "mongodb://localhost:27017/emergencyHelplineService";
-const publicFolder = path.join(process.cwd(), "static");
+const publicFolder = path.join(process.cwd(), "public");
 app.use(express.static(publicFolder));
 const foldersToCreate = ["serviceImages"];
 async function server() {
