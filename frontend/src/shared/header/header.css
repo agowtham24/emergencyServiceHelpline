@@ -1,0 +1,18 @@
+.navbar {
+  background-color: #9dbbe1;
+}
+.nav-link:hover {
+  color: #f20606bd;
+}
+.active {
+  color: #f20606bd !important;
+}
+.navbox {
+  /* background-color: #888c9175; */
+  top: 0 !important;
+  position: fixed !important;
+  z-index: 1 !important;
+}
+.aa:hover{
+  cursor: pointer;
+}

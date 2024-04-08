@@ -9,6 +9,8 @@ const serviceSchema = new mongoose.Schema<Service>({
   specialization: { type: String, default: "" },
   serviceType: { type: String, required: true },
   image: { type: String, required: true },
+  latitude: { type: Number, required: true },
+  longitude: { type: Number, required: true },
 });
 
 export const ServiceModel = mongoose.model("service", serviceSchema);

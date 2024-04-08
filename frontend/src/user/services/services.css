@@ -1,13 +1,10 @@
-.home .card {
+.service .card {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  background-color: #60a5fa;
-  color: white;
   transition: 0.3s ease-in-out;
-  height: 200px;
   cursor: pointer;
 }
 
-.home .card:hover {
+.service .card:hover {
   transform: scale(1.05) translateY(-10px);
   transition: 0.3s ease-in-out;
 }

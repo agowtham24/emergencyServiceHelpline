@@ -29,6 +29,8 @@ export const serviceSchema = z.object({
   specialization: z.string().nonempty().optional().default(""), // Optional field
   serviceType: z.string().nonempty({ message: "Service type cannot be empty" }),
   image: z.string().nonempty({ message: "Image cannot be empty" }),
+  latitude: z.number(),
+  longitude: z.number(),
 });
 
 export type UserConnectedService = z.infer<typeof userConnectedServiceSchema>;

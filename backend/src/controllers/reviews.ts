@@ -30,33 +30,41 @@ export const getReviewsByService = async (req: Request, res: Response) => {
   try {
     const reviews = await ReviewModel.aggregate([
       {
-        $match: {
-          serviceId: req.params.serviceId,
+        $match: { serviceId: req.params.serviceId },
+      },
+      {
+        $addFields: {
+          userObjectId: { $toObjectId: "$userId" },
         },
       },
       {
         $lookup: {
           from: "users",
-          localField: "userId",
+          localField: "userObjectId",
           foreignField: "_id",
           as: "user",
         },
       },
       {
-        $unwind: "$user",
+        $project: {
+          _id: 1,
+          rating: 1,
+          review: 1,
+          comment: 1,
+          user: { name: 1, email: 1 },
+        },
       },
       {
         $project: {
-          _id: 0,
+          _id: 1,
           rating: 1,
+          review: 1,
           comment: 1,
-          user: {
-            _id: 0,
-            name: 1,
-          },
+          user: { name: 1, email: 1 },
         },
       },
     ]);
+
     res.status(200).json(reviews);
   } catch (error) {
     res.status(400).json({ error: error });

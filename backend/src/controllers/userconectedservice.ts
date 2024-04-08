@@ -3,6 +3,7 @@ import { userConnectedServiceSchema } from "../Validations";
 import { UserConnectedServiceModel } from "../schemas/userconectedservice";
 import { UserModel } from "../schemas/users";
 import { mail } from "../sharedfunctions";
+import { ServiceModel } from "../schemas/services";
 
 export const createUserConnectedService = async (
   req: Request,
@@ -31,12 +32,12 @@ export const createUserConnectedService = async (
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    const service = await UserModel.findById(data.data.serviceId);
+    const service = await ServiceModel.findById(data.data.serviceId);
     if (!service) {
       return res.status(404).json({ error: "Service not found" });
     }
     // Send email to service provider
-    const html = `<h1>Service Request</h1> <p>${data.data.message}</p> <p>From: ${user.name}</p> <p>Email: ${user.email}</p>`;
+    const html = `<h5>Service Request</h5> <p>Message : ${data.data.message}</p> <p>From: ${user.name}</p> <p>Email: ${user.email}</p>`;
     await mail(html, service.email, "Service Request");
     const userConnectedService = new UserConnectedServiceModel(data.data);
     await userConnectedService.save();

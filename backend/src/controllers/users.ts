@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import e, { Request, Response } from "express";
 import { UserSchema } from "../Validations";
 import { UserModel } from "../schemas/users";
 
@@ -63,6 +63,21 @@ export const deleteUser = async (req: Request, res: Response) => {
     }
     await UserModel.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+};
+
+export const loginUser = async (req: Request, res: Response) => {
+  try {
+    const existingUser = await UserModel.findOne({ email: req.body.email });
+    if (!existingUser) {
+      return res.status(404).json({ message: "User not found on that email" });
+    }
+    if (existingUser.password !== req.body.password) {
+      return res.status(400).json({ message: "Invalid Credentials" });
+    }
+    res.status(200).json(existingUser);
   } catch (error) {
     res.status(500).json({ error: error });
   }

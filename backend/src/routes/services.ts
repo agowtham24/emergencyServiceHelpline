@@ -7,6 +7,7 @@ import {
   updateService,
   deleteService,
   getServicesByType,
+  getServicesByLocation,
 } from "../controllers/services";
 
 export const serviceRouter = Router();
@@ -23,6 +24,7 @@ const Storage = multer.diskStorage({
 });
 const upload = multer({ storage: Storage });
 
+serviceRouter.get("/location/:location", getServicesByLocation);
 serviceRouter.get("/type/:type", getServicesByType);
 serviceRouter.post("/", upload.single("image"), createService);
 serviceRouter.get("/", getServices);
