@@ -29,18 +29,32 @@ export function Services() {
     <>
       <Header />
       <div className="container service">
-        <div className="row" style={{
-          marginTop:"10%"
-        }}>
+        <div
+          className="row"
+          style={{
+            marginTop: "10%",
+          }}
+        >
           <div className="col-lg-10 col-md-10 col-sm-6 col-12">
             <input
               type="search"
               className="form-control"
               ref={searchRef}
               placeholder="Search By Location"
+              onKeyUp={async (e: any) => {
+                console.log(e.target.value, "event");
+                if (e.target.value === "") {
+                  getServices();
+                  return;
+                }
+                const res = await api.get(
+                  `services/location/${e.target.value}`
+                );
+                setServices(res.data);
+              }}
             />
           </div>
-          <div className="col-lg-2 col-md-2 col-sm-6 col-12">
+          {/* <div className="col-lg-2 col-md-2 col-sm-6 col-12">
             <button
               className="btn btn-secondary"
               type="button"
@@ -57,7 +71,7 @@ export function Services() {
             >
               Search
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="row mt-5">
           {services.map((service) => (

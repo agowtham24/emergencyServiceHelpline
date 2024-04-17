@@ -2,13 +2,13 @@ import "./home.css";
 import { useNavigate } from "react-router-dom";
 import { serviceAtom } from "../../store";
 import { useAtom } from "jotai";
-import {Header} from "../../shared/header/header";
+import { Header } from "../../shared/header/header";
 export function Home() {
   const navigate = useNavigate();
   const [, setService] = useAtom(serviceAtom);
   return (
     <>
-    <Header/>
+      <Header />
       <div className="container home">
         <div
           className="row align-items-center justify-content-center"

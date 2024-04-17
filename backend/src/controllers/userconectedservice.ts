@@ -41,7 +41,7 @@ export const createUserConnectedService = async (
     await mail(html, service.email, "Service Request");
     const userConnectedService = new UserConnectedServiceModel(data.data);
     await userConnectedService.save();
-    res.status(201).json({ message: "User connected to service" });
+    res.status(200).json({ message: "User connected to service" });
   } catch (error) {
     res.status(400).json({ error: error });
   }

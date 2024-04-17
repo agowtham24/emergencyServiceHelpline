@@ -97,7 +97,18 @@ export const getServicesByType = async (req: Request, res: Response) => {
 
 export const getServicesByLocation = async (req: Request, res: Response) => {
   try {
-    const services = await ServiceModel.find({ location: req.params.location });
+    const keyword = req.params.location;
+    const services = await ServiceModel.aggregate([
+      {
+        $match: {
+          location: {
+            $regex: keyword,
+            $options: "i",
+          },
+        },
+      },
+    ]);
+
     res.json(services);
   } catch (error) {
     res.status(400).json({ error: error });

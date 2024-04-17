@@ -61,7 +61,7 @@ export function Service() {
 
   const setReview = (rating: number, index: number) => {
     setRating(rating);
-    let icons = document.querySelectorAll(".icon");
+    const icons = document.querySelectorAll(".icon");
     icons[index].classList.add("activee");
     for (let i = 0; i < icons.length; i++) {
       if (i !== index) {
@@ -71,7 +71,7 @@ export function Service() {
   };
   return (
     <>
-    <Header />
+      <Header />
       <div className="container view">
         <div className="row mt-5">
           <div className="col-lg-12 col-md-12 col-sm-12 col-12">
@@ -193,6 +193,11 @@ export function Service() {
                 <div className="text-center">
                   <button
                     onClick={async () => {
+                      if (sessionStorage.getItem("user") === null) {
+                        alert("Please login to send message");
+                        return;
+                      }
+
                       if (messageRef.current?.value === "") {
                         alert("Message is required");
                         return;

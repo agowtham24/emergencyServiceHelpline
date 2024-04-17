@@ -31,7 +31,7 @@ const userRegisterSchema = z.object({
 });
 
 export function Login() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const userRegisterForm = useForm<z.infer<typeof userRegisterSchema>>({
     resolver: zodResolver(userRegisterSchema),
     defaultValues: {
@@ -80,7 +80,6 @@ export function Login() {
                         {...userLoginForm.register("email", { required: true })}
                         type="email"
                         className="form-control"
-                        maxLength={50}
                         id="email"
                       />
                     </div>
@@ -94,7 +93,6 @@ export function Login() {
                         })}
                         type="password"
                         className="form-control"
-                        maxLength={50}
                         id="password"
                       />
                     </div>
@@ -103,8 +101,8 @@ export function Login() {
                         className="btn btn-primary mt-5"
                         type="submit"
                         onClick={userLoginForm.handleSubmit(async (data) => {
-                          const res = await api.post("users/login", data);
-                          if (res.status === 200) {
+                          try {
+                            const res = await api.post("users/login", data);
                             toast.success("Logged in successfully");
                             sessionStorage.setItem(
                               "user",
@@ -112,8 +110,9 @@ export function Login() {
                             );
                             userLoginForm.reset();
                             navigate("/");
-                          } else {
-                            toast.error(res.data.error);
+                          } catch (error: any) {
+                            // console.log(error, "error");
+                            toast.error(error.response.data.message);
                           }
                         })}
                       >
@@ -152,7 +151,6 @@ export function Login() {
                         })}
                         type="text"
                         className="form-control"
-                        maxLength={50}
                         id="name"
                       />
                     </div>
@@ -166,7 +164,6 @@ export function Login() {
                         })}
                         type="email"
                         className="form-control"
-                        maxLength={50}
                         id="email"
                       />
                     </div>
@@ -180,7 +177,6 @@ export function Login() {
                         })}
                         type="password"
                         className="form-control"
-                        maxLength={50}
                         id="password"
                       />
                     </div>
@@ -194,7 +190,6 @@ export function Login() {
                         })}
                         type="text"
                         className="form-control"
-                        maxLength={50}
                         id="location"
                       />
                     </div>
@@ -204,7 +199,7 @@ export function Login() {
                         type="submit"
                         onClick={userRegisterForm.handleSubmit(async (data) => {
                           const res = await api.post("users", data);
-                          if (res.status === 201) {
+                          if (res.status === 200) {
                             userRegisterForm.reset();
                             toast.success("Registered successfully");
                             setShowLoginForm(true);

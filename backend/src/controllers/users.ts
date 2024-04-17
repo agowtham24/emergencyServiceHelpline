@@ -15,7 +15,7 @@ export const createUser = async (req: Request, res: Response) => {
     }
     const newUser = new UserModel(user.data);
     await newUser.save();
-    res.status(201).json({ message: "User created successfully" });
+    res.status(200).json({ message: "User created successfully" });
   } catch (error) {
     res.status(500).json({ error: error });
   }
@@ -77,7 +77,7 @@ export const loginUser = async (req: Request, res: Response) => {
     if (existingUser.password !== req.body.password) {
       return res.status(400).json({ message: "Invalid Credentials" });
     }
-    res.status(200).json(existingUser);
+    res.status(200).send(existingUser);
   } catch (error) {
     res.status(500).json({ error: error });
   }
